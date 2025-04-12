@@ -1,0 +1,30 @@
+<!-- views/reportWaste.ejs -->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Report Waste</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <h1>Report New Waste</h1>
+  <form action="/user/report" method="POST">
+    <label for="type">Waste Type:</label>
+     <select name="type" required>
+      <option value="plastic">Plastic</option>
+      <option value="metal">Metal</option>
+      <option value="organic">Organic</option>
+      <!-- Add more as needed -->
+    </select>
+    <br><br>
+
+    <label for="quantity">Quantity (kg):</label>
+    <input type="number" name="quantity" id="quantity" required><br><br>
+
+    <label for="location">Location:</label>
+    <input type="text" name="location" id="location" required><br><br>
+
+    <button type="submit">Submit</button>
+  </form>
+  <a href="/user">Back to Dashboard</a>
+</body>
+</html>

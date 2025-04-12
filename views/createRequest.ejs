@@ -1,0 +1,15 @@
+<form action="/company/request" method="POST">
+    <label>Type of Waste</label>
+    <select name="type" required>
+      <option value="plastic">Plastic</option>
+      <option value="metal">Metal</option>
+      <option value="organic">Organic</option>
+      <!-- Add more as needed -->
+    </select>
+  
+    <label>Quantity (kg)</label>
+    <input type="number" name="quantity" required min="1" />
+  
+    <button type="submit">Submit Request</button>
+  </form>
+  

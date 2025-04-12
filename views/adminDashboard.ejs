@@ -1,0 +1,80 @@
+<!-- views/adminDashboard.ejs -->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <h1>Admin Dashboard</h1>
+  <a href="/auth/logout">Logout</a>
+
+  <h2>Reported Waste</h2>
+  <% if (wasteList.length === 0) { %>
+    <p>No waste reported yet.</p>
+  <% } else { %>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Quantity</th>
+          <th>Location</th>
+          <th>Reported By</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% wasteList.forEach(waste => { %>
+          <tr>
+            <td><%= waste.type %></td>
+            <td><%= waste.quantity %></td>
+            <td><%= waste.location %></td>
+            <td><%= waste.reportedBy.name %></td>
+            <td>
+              <% if (waste.assignedTo) { %>
+                Assigned
+              <% } else { %>
+                Unassigned
+              <% } %>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  <% } %>
+
+  <h2>Company Requests</h2>
+  <% if (companyRequests.length === 0) { %>
+    <p>No requests yet.</p>
+  <% } else { %>
+    <table>
+      <thead>
+        <tr>
+          <th>Company</th>
+          <th>Type</th>
+          <th>Quantity</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% companyRequests.forEach(request => { %>
+          <tr>
+            <td><%= request.company.name %></td>
+            <td><%= request.type %></td>
+            <td><%= request.quantity %></td>
+            <% if(request.assignedWaste==="assigned"){ %>
+            <td>
+              Assigned
+            </td>
+            <% }else{ %>
+              <td>
+              <a href="/admin/assign/<%= request._id %>">Assign</a>
+            </td>
+            <% } %>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  <% } %>
+</body>
+</html>

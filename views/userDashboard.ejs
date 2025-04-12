@@ -1,0 +1,39 @@
+<!-- views/userDashboard.ejs -->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>User Dashboard</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <h1>Welcome to the User Dashboard</h1>
+  <a href="/user/report">Report New Waste</a>
+  <a href="/auth/logout">Logout</a>
+
+  <h2>Your Reported Waste</h2>
+  <% if (wasteList.length === 0) { %>
+    <p>No waste records submitted yet.</p>
+  <% } else { %>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Quantity</th>
+          <th>Location</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% wasteList.forEach(waste => { %>
+          <tr>
+            <td><%= waste.type %></td>
+            <td><%= waste.quantity %></td>
+            <td><%= waste.location %></td>
+            <td><%= new Date(waste.createdAt).toLocaleString() %></td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  <% } %>
+</body>
+</html>

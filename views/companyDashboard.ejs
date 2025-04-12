@@ -1,0 +1,50 @@
+<html>
+<head>
+  <title>Company Dashboard</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <h1>Welcome, <%= user.name %></h1>
+  <a href="/auth/logout">Logout</a>
+
+  <h2>Your Requests</h2>
+  <a href="/company/request">+ Create New Request</a>
+
+  <% if (requests.length === 0) { %>
+    <p>You haven't submitted any waste requests yet.</p>
+  <% } else { %>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Quantity</th>
+          <th>Status</th>
+          <th>Pickup Location</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% requests.forEach(req => { %>
+          <tr>
+            <td><%= req.type %></td>
+            <td><%= req.quantity %></td>
+            <td>
+              <% if (req.assignedWaste) { %>
+                Assigned
+              <% } else { %>
+                Pending
+              <% } %>
+            </td>
+            <td>
+              <% if (req.assignedWaste) { %>
+                <%= req.assignedWaste.location %>
+              <% } else { %>
+                N/A
+              <% } %>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  <% } %>
+</body>
+</html>

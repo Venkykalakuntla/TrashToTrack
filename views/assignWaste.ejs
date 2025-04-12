@@ -1,0 +1,33 @@
+<!-- views/assignWaste.ejs -->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Assign Waste</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <h1>Assign Waste to Request</h1>
+
+  <h2>Request by <%= request.company.name %></h2>
+  <p><strong>Type:</strong> <%= request.type %></p>
+  <p><strong>Quantity Needed:</strong> <%= request.quantity %> kg</p>
+
+  <h3>Available Waste</h3>
+  <% if (availableWaste.length === 0) { %>
+    <p>No matching waste available for assignment.</p>
+  <% } else { %>
+    <form action="/admin/assign/<%= request._id %>" method="POST">
+      <select name="wasteId" required>
+        <% availableWaste.forEach(waste => { %>
+          <option value="<%= waste._id %>">
+            Type: <%= waste.type %> | Quantity: <%= waste.quantity %>kg | Location: <%= waste.location %>
+          </option>
+        <% }) %>
+      </select>
+      <button type="submit">Assign Waste</button>
+    </form>
+  <% } %>
+
+  <a href="/admin">Back to Dashboard</a>
+</body>
+</html>
