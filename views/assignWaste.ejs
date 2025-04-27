@@ -1,33 +1,111 @@
-<!-- views/assignWaste.ejs -->
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
   <title>Assign Waste</title>
   <link rel="stylesheet" href="/css/style.css">
+  <style>
+    body {
+      background: #f0f4f8;
+      font-family: 'Arial', sans-serif;
+      padding: 20px;
+      margin: 0;
+    }
+
+    h1, h2, h3 {
+      text-align: center;
+      color: #2c5282;
+    }
+
+    .card {
+      background: white;
+      max-width: 600px;
+      margin: 30px auto;
+      padding: 30px 25px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    p {
+      color: #4a5568;
+      font-size: 1.1em;
+      margin-bottom: 15px;
+    }
+
+    form {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    select {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #cbd5e0;
+      border-radius: 8px;
+      background-color: #edf2f7;
+      margin-bottom: 20px;
+      font-size: 1em;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #4299e1;
+      color: white;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      font-size: 1em;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    button:hover {
+      background-color: #3182ce;
+    }
+
+    a {
+      display: block;
+      margin-top: 20px;
+      text-align: center;
+      color: #2b6cb0;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
 </head>
 <body>
+
   <h1>Assign Waste to Request</h1>
 
-  <h2>Request by <%= request.company.name %></h2>
-  <p><strong>Type:</strong> <%= request.type %></p>
-  <p><strong>Quantity Needed:</strong> <%= request.quantity %> kg</p>
+  <div class="card">
+    <h2>Request by <%= request.company.name %></h2>
+    <p><strong>Type:</strong> <%= request.type %></p>
+    <p><strong>Quantity Needed:</strong> <%= request.quantity %> kg</p>
 
-  <h3>Available Waste</h3>
-  <% if (availableWaste.length === 0) { %>
-    <p>No matching waste available for assignment.</p>
-  <% } else { %>
-    <form action="/admin/assign/<%= request._id %>" method="POST">
-      <select name="wasteId" required>
-        <% availableWaste.forEach(waste => { %>
-          <option value="<%= waste._id %>">
-            Type: <%= waste.type %> | Quantity: <%= waste.quantity %>kg | Location: <%= waste.location %>
-          </option>
-        <% }) %>
-      </select>
-      <button type="submit">Assign Waste</button>
-    </form>
-  <% } %>
+    <h3>Available Waste</h3>
 
-  <a href="/admin">Back to Dashboard</a>
+    <% if (availableWaste.length === 0) { %>
+      <p style="text-align: center;">No matching waste available for assignment.</p>
+    <% } else { %>
+      <form action="/admin/assign/<%= request._id %>" method="POST">
+        <select name="wasteId" required>
+          <% availableWaste.forEach(waste => { %>
+            <option value="<%= waste._id %>">
+              Type: <%= waste.type %> | Quantity: <%= waste.quantity %>kg | Location: <%= waste.location %>
+            </option>
+          <% }) %>
+        </select>
+        <button type="submit">Assign Waste</button>
+      </form>
+    <% } %>
+
+    <a href="/admin">← Back to Dashboard</a>
+  </div>
+
 </body>
 </html>

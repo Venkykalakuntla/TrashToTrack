@@ -1,39 +1,99 @@
-<!-- views/userDashboard.ejs -->
-<!DOCTYPE html>
-<html>
-<head>
-  <title>User Dashboard</title>
-  <link rel="stylesheet" href="/css/style.css">
-</head>
-<body>
-  <h1>Welcome to the User Dashboard</h1>
-  <a href="/user/report">Report New Waste</a>
-  <a href="/auth/logout">Logout</a>
+<% layout('partials/layout.ejs') %>
+  <style>
+    body {
+      background: #f7fafc;
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 20px;
+    }
 
-  <h2>Your Reported Waste</h2>
-  <% if (wasteList.length === 0) { %>
+    .username {
+
+      text-align: center;
+      margin-top: 2rem;
+      color: #3182ce;
+      font-weight: bold;
+    }
+
+    a:hover {
+      color: #2c5282;
+    }
+
+    .btn {
+      display: inline-block;
+      margin-bottom: 20px;
+      background-color: #38a169;
+      color: white;
+      padding: 8px 14px;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+
+    .btn.logout {
+      background-color: #e53e3e;
+    }
+
+    .card-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .card {
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card h3 {
+      margin-top: 0;
+      color: #2b6cb0;
+    }
+
+    .card p {
+      margin: 8px 0;
+      color: #4a5568;
+    }
+
+    .card .date {
+      font-size: 0.9em;
+      color: #718096;
+    }
+  </style>
+
+  <h3 class="username">Welcome <%= user.name %>
+  </h3>
+
+  <a href="/user/report" class="btn">Report New Waste</a>
+
+  <h3>Your Reported Waste</h3>
+
+  <% if (wasteList.length===0) { %>
     <p>No waste records submitted yet.</p>
-  <% } else { %>
-    <table>
-      <thead>
-        <tr>
-          <th>Type</th>
-          <th>Quantity</th>
-          <th>Location</th>
-          <th>Date</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% wasteList.forEach(waste => { %>
-          <tr>
-            <td><%= waste.type %></td>
-            <td><%= waste.quantity %></td>
-            <td><%= waste.location %></td>
-            <td><%= new Date(waste.createdAt).toLocaleString() %></td>
-          </tr>
-        <% }) %>
-      </tbody>
-    </table>
-  <% } %>
-</body>
-</html>
+    <% } else { %>
+      <div class="card-container">
+        <% wasteList.forEach(waste=> { %>
+          <div class="card">
+            <h3>
+              <%= waste.type %>
+            </h3>
+            <p><strong>Quantity:</strong>
+              <%= waste.quantity %>
+            </p>
+            <p><strong>Location:</strong>
+              <%= waste.location %>
+            </p>
+            <p class="date"><strong>Reported On:</strong>
+              <%= new Date(waste.createdAt).toLocaleString() %>
+            </p>
+          </div>
+          <% }) %>
+      </div>
+      <% } %>

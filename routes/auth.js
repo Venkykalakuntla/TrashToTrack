@@ -3,7 +3,8 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/user');
 const bcrypt = require('bcrypt');
-
+const { ensureAuth } = require('../middleware/ensureAuth');
+ 
 // Login page
 router.get('/login', (req, res) => {
   res.render('login');
@@ -38,6 +39,8 @@ router.post('/login', async (req, res) => {
     if (!match) return res.status(400).send('Invalid credentials');
 
     req.session.user = user;
+
+    req.user=req.session.user;
     // console.log(req.session.user);
 
     // Redirect based on role
@@ -46,17 +49,36 @@ router.post('/login', async (req, res) => {
     } else if (user.role === 'company') {
       return res.redirect('/company');
     } else {
-      return res.redirect('/user');
+      return res.redirect('/');
     }
   } catch (err) {
     res.status(500).send('Login failed');
   }
 });
 
+
+router.get("/dashboardRedirect",ensureAuth,(req,res)=>{
+
+   const user=req.user;
+  try{
+  if (user.role === 'admin') {
+    return res.redirect('/admin');
+  } else if (user.role === 'company') {
+    return res.redirect('/company');
+  } else {
+    return res.redirect('/user');
+  }
+}
+catch(err){
+     res.send(err);
+}
+})
+
+
 // Logout
 router.get('/logout', (req, res) => {
   req.session.destroy(() => {
-    res.redirect('/auth/login');
+    res.redirect('/');
   });
 });
 

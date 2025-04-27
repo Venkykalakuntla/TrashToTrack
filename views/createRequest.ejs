@@ -1,15 +1,86 @@
-<form action="/company/request" method="POST">
-    <label>Type of Waste</label>
-    <select name="type" required>
-      <option value="plastic">Plastic</option>
-      <option value="metal">Metal</option>
-      <option value="organic">Organic</option>
-      <!-- Add more as needed -->
-    </select>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Create Waste Request</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <style>
+    body {
+      background: #f7fafc;
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      color: #2b6cb0;
+      text-align: center;
+    }
+
+    .form-container {
+      max-width: 500px;
+      background: white;
+      margin: 30px auto;
+      padding: 30px 25px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      color: #4a5568;
+      font-weight: bold;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      border: 1px solid #cbd5e0;
+      background-color: #edf2f7;
+      font-size: 1em;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #38a169;
+      color: white;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      font-size: 1em;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    button:hover {
+      background-color: #2f855a;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Create Waste Request</h1>
+
+  <div class="form-container">
+    <form action="/company/request" method="POST">
+      <label for="type">Type of Waste</label>
+      <select name="type" id="type" required>
+        <option value="plastic">Plastic</option>
+        <option value="metal">Metal</option>
+        <option value="organic">Organic</option>
+        <!-- Add more as needed -->
+      </select>
   
-    <label>Quantity (kg)</label>
-    <input type="number" name="quantity" required min="1" />
+      <label for="quantity">Quantity (kg)</label>
+      <input type="number" name="quantity" id="quantity" required min="1" />
   
-    <button type="submit">Submit Request</button>
-  </form>
-  
+      <button type="submit">Submit Request</button>
+    </form>
+  </div>
+
+</body>
+</html>

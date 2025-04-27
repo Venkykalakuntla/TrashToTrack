@@ -14,7 +14,7 @@ router.get('/', ensureAuth, ensureAdmin, async (req, res) => {
     const companyRequests = await Request.find().populate('company');
     // console.log("companyrequests:",companyRequests);
 
-    res.render('adminDashboard', { wasteList, companyRequests });
+    res.render('adminDashboard', { wasteList, companyRequests,user:req.user });
 
   } catch (err) {
     res.status(500).send('Failed to load admin dashboard');
