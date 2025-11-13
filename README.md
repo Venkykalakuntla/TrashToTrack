@@ -19,7 +19,7 @@ The **admin** plays a key role in matching waste submissions from users with rec
 
 | Layer      | Technology |
 |------------|------------|
-| Frontend   | HTML, CSS, JavaScript (or React - update if needed) |
+| Frontend   | HTML, CSS, JavaScript|
 | Backend    | Node.js, Express |
 | Database   | MongoDB |
 
